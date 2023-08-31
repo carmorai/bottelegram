@@ -24,4 +24,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Bot
-        run: python bot.py
+        run: |
+          python -c "import os; print(os.environ.get('TELEGRAM_BOT_TOKEN'))"  # Debugging
+          python bot.py
+
