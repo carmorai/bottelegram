@@ -16,7 +16,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.9  # Cambia la versión a 3.9
+          python-version: 3.9  # Cambia la versión si lo necesitas
 
       - name: Install Dependencies
         run: |
@@ -24,4 +24,4 @@ jobs:
           pip install -r requirements.txt
 
       - name: Run Bot
-        run: python bot.py
+        run: python3.9 bot.py  # Cambia la versión si lo necesitas
