@@ -11,14 +11,14 @@ def start(update: Update, context: CallbackContext) -> None:
         "Acceso mensual a nuestro grupo privado de Telegram\n\n"
         "TUS BENEFICIOS:\n"
         "✅ NEUROEMPRENDEDOR (Acceso al grupo + 2 grupos adicionales)\n\n"
-        "Price: 8,50 €\n"
-        "Periodo: 1 month\n"
+        "Precio: 8,50€\n"
+        "Periodo: 1 mes\n"
         "Modo: Recurrente\n\n"
         "Seleccione una opción:"
     )
 
     keyboard = [
-        [InlineKeyboardButton("Tarjeta de Crédito", url='https://buy.stripe.com/4gw5lSbiu92GbcI288')]
+        [InlineKeyboardButton("Tarjeta de Crédito", url='https://buy.stripe.com/3csaGcaeq92Ggx2001')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
