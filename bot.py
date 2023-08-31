@@ -31,7 +31,7 @@ def button_click(update: Update, context: CallbackContext) -> None:
         query.message.reply_text(message)
 
 def main():
-    # Obtener el token desde la variable de entorno
+    # Obtener el token desde la variable de entorno P
     token = os.environ.get("TELEGRAM_BOT_TOKEN")
     
     if token is None:
