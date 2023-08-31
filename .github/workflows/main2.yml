@@ -1,0 +1,22 @@
+name: My Python Bot Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.7  # Cambia a una versión disponible, como 3.7, 3.8, 3.9
+
+      - name: Run bot
+        run: python bot.py
