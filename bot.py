@@ -15,7 +15,7 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
     keyboard = [
-        [InlineKeyboardButton("Tarjeta de Crédito", callback_data='stripe')]
+        [InlineKeyboardButton("Tarjeta ELOI de Crédito", callback_data='stripe')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
