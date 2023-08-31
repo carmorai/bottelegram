@@ -3,7 +3,7 @@ name: Deploy Bot
 on:
   push:
     branches:
-      - main  # O reemplaza con el nombre de tu rama principal
+      - main
 
 jobs:
   deploy:
@@ -12,6 +12,11 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
 
       - name: Set up Python
         uses: actions/setup-python@v2
