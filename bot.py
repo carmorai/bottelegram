@@ -14,6 +14,8 @@ def generate_temp_link(user_id):
     return secrets.token_urlsafe(32)  # Genera un token seguro para el enlace temporal
 
 def start(update: Update, context: CallbackContext) -> None:
+    print("Iniciando la función start")
+    
     message = (
         "Suscripción mensual Premium\n\n"
         "Acceso mensual a nuestro grupo privado de Telegram\n\n"
@@ -33,10 +35,14 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(message, reply_markup=reply_markup)
 
 def button_click(update: Update, context: CallbackContext) -> None:
+    print("Haciendo clic en el botón")
+    
     query = update.callback_query
     query.answer()  # Acknowledge the button click
 
     if query.data == 'stripe':
+        print("Realizando la suscripción en Stripe")
+        
         # Crear una suscripción en Stripe
         customer = stripe.Customer.create(email=query.message.chat.username)
         subscription = stripe.Subscription.create(
