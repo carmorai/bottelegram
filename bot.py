@@ -1,17 +1,10 @@
 import os
 import stripe
-import secrets
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
 
 # Configurar tu clave secreta de API de Stripe
 stripe.api_key = "sk_live_sWrF2uPsg8pBfIiPPPNxPHH4"  # Reemplaza con tu clave secreta de Stripe
-
-# Generar una clave secreta para la generación de enlaces temporales
-TEMP_LINK_SECRET = "X00CLAVESECRETAUNI68XXxx:"  # Cambia esto a tu propia clave secreta
-
-def generate_temp_link(user_id):
-    return secrets.token_urlsafe(32)  # Genera un token seguro para el enlace temporal
 
 def start(update: Update, context: CallbackContext) -> None:
     message = (
@@ -51,8 +44,8 @@ def button_click(update: Update, context: CallbackContext) -> None:
         
         # Enviar el enlace de pago de Stripe al usuario
         payment_url = session.url
-        message = f"Haz clic en el enlace para realizar el pago: {payment_url}"
-        query.message.reply_text(message)
+        query.message.reply_text("Haz clic en el enlace para realizar el pago:")
+        query.message.reply_text(payment_url)
 
 def main():
     # Token de acceso de tu bot
