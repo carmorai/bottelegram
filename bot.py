@@ -51,7 +51,7 @@ def button_click(update: Update, context: CallbackContext) -> None:
         
         # Enviar el enlace de pago de Stripe al usuario
         payment_url = session.url
-        message = "Haz clic en el enlace para realizar el pago: {payment_url}"
+        message = f"Haz clic en el enlace para realizar el pago: {payment_url}"
         query.message.reply_text(message)
 
 def main():
@@ -72,3 +72,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
