@@ -1,4 +1,3 @@
-import os
 import stripe
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
@@ -19,7 +18,7 @@ def button_click(update: Update, context: CallbackContext) -> None:
     query.answer()
 
     if query.data == 'stripe':
-        print("Botón de pago presionado")  # Para verificar si el evento se ejecuta
+        print("Botón de pago presionado")
         try:
             session = stripe.checkout.Session.create(
                 payment_method_types=['card'],
@@ -30,15 +29,18 @@ def button_click(update: Update, context: CallbackContext) -> None:
                     }
                 ],
                 mode='payment',
-                success_url='https://tu-sitio.com/success',
-                cancel_url='https://tu-sitio.com/cancel',
+                success_url='https://tu-sitio.com/pago_exitoso',
+                cancel_url='https://tu-sitio.com/pago_cancelado',
             )
             
             payment_url = session.url
             query.message.reply_text(f"Haz clic en el enlace para realizar el pago: {payment_url}")
+        except stripe.error.StripeError as e:
+            print("Error de Stripe:", str(e))
+            query.message.reply_text("Ocurrió un error de pago con Stripe. Por favor, inténtalo más tarde.")
         except Exception as e:
-            print("Error al crear la sesión de pago:", e)
-            query.message.reply_text("Ocurrió un error al procesar el pago. Por favor, inténtalo más tarde.")
+            print("Error inesperado:", str(e))
+            query.message.reply_text("Ocurrió un error inesperado. Por favor, inténtalo más tarde.")
 
 def main():
     token = "6307738962:AAEOr7Xel_u9t_vL1SFDcK-7iTFv26lYHzY"
