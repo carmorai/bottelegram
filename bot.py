@@ -31,29 +31,20 @@ def button_click(update: Update, context: CallbackContext) -> None:
         query.message.reply_text(message)
 
 def main():
-    try:
-        # Obtener el token desde la variable de entorno TELEGRAM_BOT_TOKEN
-        token = os.environ.get("TELEGRAM_BOT_TOKEN")
-
-        if token is None:
-            raise ValueError("TELEGRAM_BOT_TOKEN no está configurado en las Secrets de GitHub.")
-
-        updater = Updater(token, use_context=True)
-        dispatcher = updater.dispatcher
-
-        # Manejador para el comando /start
-        dispatcher.add_handler(CommandHandler("start", start))
-
-        # Manejador para los botones
-        dispatcher.add_handler(CallbackQueryHandler(button_click))
-
-        # Iniciar el bot
-        updater.start_polling()
-        updater.idle()
-
-    except Exception as e:
-        print("Error:", e)
-        raise
+    # Token de acceso de tu bot
+    token = "6307738962:AAEOr7Xel_u9t_vL1SFDcK-7iTFv26lYHzY"  # Reemplaza con tu token real
+    updater = Updater(token, use_context=True)
+    dispatcher = updater.dispatcher
+    
+    # Manejador para el comando /start
+    dispatcher.add_handler(CommandHandler("start", start))
+    
+    # Manejador para los botones
+    dispatcher.add_handler(CallbackQueryHandler(button_click))
+    
+    # Iniciar el bot
+    updater.start_polling()
+    updater.idle()
 
 if __name__ == "__main__":
     main()

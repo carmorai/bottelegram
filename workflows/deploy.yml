@@ -3,15 +3,23 @@ name: Deploy Bot
 on:
   push:
     branches:
-      - main  # O reemplaza con el nombre de tu rama principal
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.12.0-rc.1  # Actualiza la versión de Python aquí
 
       - name: Install Dependencies
         run: |
