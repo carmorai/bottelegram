@@ -4,22 +4,15 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
 
 # Configurar tu clave secreta de API de Stripe
-stripe.api_key = "sk_live_sWrF2uPsg8pBfIiPPPNxPHH4"  # Reemplaza con tu clave secreta de Stripe
+stripe.api_key = "sk_live_sWrF2uPsg8pBfIiPPPNxPHH4"
 
 def start(update: Update, context: CallbackContext) -> None:
     message = (
-        "Suscripción mensual Premium\n\n"
-        "Acceso mensual a nuestro grupo privado de Telegram\n\n"
-        "TUS BENEFICIOS:\n"
-        "✅ NEUROEMPRENDEDOR (Acceso al grupo + 2 grupos adicionales)\n\n"
-        "Price: 8,50 €\n"
-        "Periodo: 1 month\n"
-        "Modo: Recurrente\n\n"
-        "Seleccione una opción:"
+        "Haz clic en el botón para pagar:"
     )
 
     keyboard = [
-        [InlineKeyboardButton("Tarjeta de Crédito", callback_data='stripe')]
+        [InlineKeyboardButton("Pagar con Tarjeta", callback_data='stripe')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
@@ -27,29 +20,31 @@ def start(update: Update, context: CallbackContext) -> None:
 
 def button_click(update: Update, context: CallbackContext) -> None:
     query = update.callback_query
-    query.answer()  # Acknowledge the button click
+    query.answer()
 
     if query.data == 'stripe':
-        # Crear una Checkout Session en Stripe
+        # Crea un Checkout Session en Stripe
         session = stripe.checkout.Session.create(
             payment_method_types=['card'],
-            line_items=[{
-                'price': 'price_1Nl7wQFp9Pnzoti4T2M1C1Ly',  # Reemplaza con el ID del precio que creaste en Stripe
-                'quantity': 1,
-            }],
+            line_items=[
+                {
+                    'price': 'price_1Nl7wQFp9Pnzoti4T2M1C1Ly',  # Reemplaza con el ID del precio que creaste en Stripe
+                    'quantity': 1,
+                }
+            ],
             mode='payment',
-            success_url='https://tu-sitio.com/success',  # Cambia a tu URL de éxito
-            cancel_url='https://tu-sitio.com/cancel',    # Cambia a tu URL de cancelación
+            success_url='https://tusitio.com/success',
+            cancel_url='https://tusitio.com/cancel',
         )
-        
-        # Enviar el enlace de pago de Stripe al usuario
+
+        # Enviar el enlace de pago a través de Telegram
         payment_url = session.url
-        query.message.reply_text("Haz clic en el enlace para realizar el pago:")
-        query.message.reply_text(payment_url)
+        message = f"Haz clic en el enlace para realizar el pago: {payment_url}"
+        query.message.reply_text(message)
 
 def main():
     # Token de acceso de tu bot
-    token = "6307738962:AAEOr7Xel_u9t_vL1SFDcK-7iTFv26lYHzY"  # Reemplaza con tu token real
+    token = "6307738962:AAEOr7Xel_u9t_vL1SFDcK-7iTFv26lYHzY"
     updater = Updater(token, use_context=True)
     dispatcher = updater.dispatcher
     
@@ -65,4 +60,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
