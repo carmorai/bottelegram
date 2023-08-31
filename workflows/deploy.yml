@@ -3,7 +3,7 @@ name: Deploy Bot
 on:
   push:
     branches:
-      - main
+      - main  # O reemplaza con el nombre de tu rama principal
 
 jobs:
   deploy:
@@ -16,12 +16,12 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: 3.11
+          python-version: 3.11  # Reemplaza con la versión de Python que estás utilizando
 
-      - name: Use Node.js 16.x
+      - name: Set up Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x
+          node-version: 16.x  # Utilizar Node.js 16
 
       - name: Install Dependencies
         run: |
