@@ -1,4 +1,3 @@
-import os
 import stripe
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
@@ -30,24 +29,31 @@ def button_click(update: Update, context: CallbackContext) -> None:
     query.answer()  # Acknowledge the button click
 
     if query.data == 'stripe':
-        # Crear un enlace de Checkout de Stripe
-        session = stripe.checkout.Session.create(
-            payment_method_types=['card'],
-            line_items=[
-                {
-                    'price': 'price_1Nl7wQFp9Pnzoti4T2M1C1Ly',
-                    'quantity': 1,
-                }
-            ],
-            mode='payment',
-            success_url='https://tu-sitio.com/success',
-            cancel_url='https://tu-sitio.com/cancel',
-        )
-        
-        # Enviar un mensaje al usuario con el enlace de pago
-        payment_url = session.url
-        message = f"Haz clic en el enlace para realizar el pago: {payment_url}"
-        query.message.reply_text(message)
+        try:
+            # Crear un enlace de Checkout de Stripe
+            session = stripe.checkout.Session.create(
+                payment_method_types=['card'],
+                line_items=[
+                    {
+                        'price': 'price_1Nl7wQFp9Pnzoti4T2M1C1Ly',
+                        'quantity': 1,
+                    }
+                ],
+                mode='payment',
+                success_url='https://tu-sitio.com/success',
+                cancel_url='https://tu-sitio.com/cancel',
+            )
+            
+            # Enviar un mensaje al usuario con el enlace de pago
+            payment_url = session.url
+            message = f"Haz clic en el enlace para realizar el pago: {payment_url}"
+            query.message.reply_text(message)
+        except stripe.error.StripeError as e:
+            print("Error de Stripe:", str(e))
+            query.message.reply_text("Ocurrió un error de pago con Stripe. Por favor, inténtalo más tarde.")
+        except Exception as e:
+            print("Error inesperado:", str(e))
+            query.message.reply_text("Ocurrió un error inesperado. Por favor, inténtalo más tarde.")
 
 def main():
     # Token de acceso de tu bot
