@@ -1,3 +1,4 @@
+import os
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
 
@@ -30,8 +31,12 @@ def button_click(update: Update, context: CallbackContext) -> None:
         query.message.reply_text(message)
 
 def main():
-    # Token de acceso de tu bot
-    token = "6307738962:AAEOr7Xel_u9t_vL1SFDcK-7iTFv26lYHzY"
+    # Obtener el token desde la variable de entorno
+    token = os.environ.get("TELEGRAM_BOT_TOKEN")
+    
+    if token is None:
+        raise ValueError("TELEGRAM_BOT_TOKEN no está configurado en las Secrets de GitHub.")
+
     updater = Updater(token, use_context=True)
     dispatcher = updater.dispatcher
     
