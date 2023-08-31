@@ -1,4 +1,3 @@
-import os
 import stripe
 import secrets
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
@@ -37,24 +36,21 @@ def button_click(update: Update, context: CallbackContext) -> None:
     query.answer()  # Acknowledge the button click
 
     if query.data == 'stripe':
-        # Crear una suscripción en Stripe
-        customer = stripe.Customer.create(email=query.message.chat.username)
-        subscription = stripe.Subscription.create(
-            customer=customer.id,
-            items=[
-                {"price": "price_1Nl7wQFp9Pnzoti4T2M1C1Ly"}  # Reemplaza con el ID del precio que creaste en Stripe
-            ]
+        # Crear una sesión de pago en Stripe
+        session = stripe.checkout.Session.create(
+            payment_method_types=['card'],
+            line_items=[{
+                'price': 'price_1Nl7wQFp9Pnzoti4T2M1C1Ly',  # Reemplaza con el ID del precio que creaste en Stripe
+                'quantity': 1,
+            }],
+            mode='payment',
+            success_url='https://tu-sitio.com/success',  # Cambia a tu URL de éxito
+            cancel_url='https://tu-sitio.com/cancel',    # Cambia a tu URL de cancelación
         )
         
-        # Generar un enlace temporal de invitación único
-        temp_link = generate_temp_link(query.message.chat.id)
-        invite_link = f'https://t.me/+QO3qSol1tMwwN2E8?start={temp_link}'
-        
-        # Enviar un mensaje al usuario con el enlace de pago y el enlace temporal
-        payment_url = subscription.latest_invoice.hosted_invoice_url
-        message = f"Haz clic en el enlace para realizar el pago: {payment_url}\n\n"
-        message += f"O utiliza este enlace temporal para unirte al grupo: {invite_link}"
-        query.message.reply_text(message)
+        # Enviar un mensaje al usuario con el enlace de pago de Stripe
+        payment_url = session.url
+        query.message.reply_text(f"Haz clic en el enlace para realizar el pago: {payment_url}")
 
 def main():
     # Token de acceso de tu bot
