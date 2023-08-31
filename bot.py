@@ -18,42 +18,11 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
     keyboard = [
-        [InlineKeyboardButton("Tarjeta de Crédito", callback_data='stripe')]
+        [InlineKeyboardButton("Tarjeta de Crédito", url='https://buy.stripe.com/4gw5lSbiu92GbcI288')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
     update.message.reply_text(message, reply_markup=reply_markup)
-
-def button_click(update: Update, context: CallbackContext) -> None:
-    query = update.callback_query
-    query.answer()  # Acknowledge the button click
-
-    if query.data == 'stripe':
-        try:
-            # Crear un enlace de Checkout de Stripe
-            session = stripe.checkout.Session.create(
-                payment_method_types=['card'],
-                line_items=[
-                    {
-                        'price': 'price_1Nl7wQFp9Pnzoti4T2M1C1Ly',
-                        'quantity': 1,
-                    }
-                ],
-                mode='payment',
-                success_url='https://tu-sitio.com/success',
-                cancel_url='https://tu-sitio.com/cancel',
-            )
-            
-            # Enviar un mensaje al usuario con el enlace de pago
-            payment_url = session.url
-            message = f"Haz clic en el enlace para realizar el pago: {payment_url}"
-            query.message.reply_text(message)
-        except stripe.error.StripeError as e:
-            print("Error de Stripe:", str(e))
-            query.message.reply_text("Ocurrió un error de pago con Stripe. Por favor, inténtalo más tarde.")
-        except Exception as e:
-            print("Error inesperado:", str(e))
-            query.message.reply_text("Ocurrió un error inesperado. Por favor, inténtalo más tarde.")
 
 def main():
     # Token de acceso de tu bot
@@ -63,9 +32,6 @@ def main():
     
     # Manejador para el comando /start
     dispatcher.add_handler(CommandHandler("start", start))
-    
-    # Manejador para los botones
-    dispatcher.add_handler(CallbackQueryHandler(button_click))
     
     # Iniciar el bot
     updater.start_polling()
