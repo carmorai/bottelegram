@@ -3,7 +3,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
 
 # Configurar tu clave secreta de API de Stripe
-stripe.api_key = "sk_live_sWrF2uPsg8pBfIiPPPNxPHH4"  # Reemplaza con tu clave secreta de Stripe
+stripe.api_key = "sk_test_APCX7gjlCjeXpNImvCmvPlmF"  # Reemplaza con tu clave secreta de Stripe
 
 def start(update: Update, context: CallbackContext) -> None:
     message = (
