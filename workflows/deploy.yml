@@ -2,7 +2,7 @@ name: Reinicio Automático
 
 on:
   workflow_run:
-    workflows: ["Deploy Bot"]  # Reemplaza con el nombre de tu flujo de trabajo
+    workflows: ["Reinicio automatico"]
     types:
       - completed
 
@@ -15,7 +15,7 @@ jobs:
         run: |
           if [[ $GITHUB_EVENT_NAME == 'workflow_run' && $GITHUB_EVENT_PATH ]]; then
             completed_workflow_id=$(jq -r '.workflow_run.id' "$GITHUB_EVENT_PATH")
-            workflow_name="Deploy Bot"  # Reemplaza con el nombre de tu flujo de trabajo
+            workflow_name="Reinicio automatico"
             current_time=$(date +%s)
             workflow_start_time=$(date -d "$(jq -r '.workflow_run.created_at' "$GITHUB_EVENT_PATH")" +%s)
             max_execution_time=$((4 * 60 * 60))  # 4 horas en segundos
