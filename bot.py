@@ -18,7 +18,7 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
     keyboard = [
-        [InlineKeyboardButton("Tarjeta de Crédito", url='https://buy.stripe.com/3csaGcaeq92Ggx2001')]
+        [InlineKeyboardButton("Tarjeta de Crédito", url='https://buy.stripe.com/test_fZe7sA3nCbfW5ri288')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
