@@ -2,9 +2,6 @@ import stripe
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
 
-# Configurar tu clave secreta de API de Stripe
-stripe.api_key = "sk_live_sWrF2uPsg8pBfIiPPPNxPHH4"  # Reemplaza con tu clave secreta de Stripe
-
 def start(update: Update, context: CallbackContext) -> None:
     message = (
         "Suscripción mensual Premium\n\n"
@@ -29,8 +26,7 @@ def start(update: Update, context: CallbackContext) -> None:
     update.message.reply_text(message, reply_markup=reply_markup)
 
 def main():
-    # Token de acceso de tu bot
-    token = "6307738962:AAEOr7Xel_u9t_vL1SFDcK-7iTFv26lYHzY"  # Reemplaza con tu token real
+    token = "6307738962:AAEOr7Xel_u9t_vL1SFDcK-7iTFv26lYHzY"
     updater = Updater(token, use_context=True)
     dispatcher = updater.dispatcher
     
