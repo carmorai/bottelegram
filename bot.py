@@ -3,7 +3,7 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
 
 # Configurar tu clave secreta de API de Stripe
-stripe.api_key = "sk_test_APCX7gjlCjeXpNImvCmvPlmF"  # Reemplaza con tu clave secreta de Stripe
+stripe.api_key = "sk_live_sWrF2uPsg8pBfIiPPPNxPHH4"  # Reemplaza con tu clave secreta de Stripe
 
 def start(update: Update, context: CallbackContext) -> None:
     message = (
@@ -21,7 +21,7 @@ def start(update: Update, context: CallbackContext) -> None:
     )
 
     keyboard = [
-        [InlineKeyboardButton("Tarjeta de Crédito o PAYPAL", url='https://buy.stripe.com/test_fZe7sA3nCbfW5ri288')]
+        [InlineKeyboardButton("Tarjeta de Crédito o PAYPAL", url='https://buy.stripe.com/4gw5lSbiu92GbcI288')]
     ]
 
     reply_markup = InlineKeyboardMarkup(keyboard)
