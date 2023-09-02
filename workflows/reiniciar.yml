@@ -2,7 +2,7 @@ name: Reiniciar Bot
 
 on:
   schedule:
-    - cron: '0 */4 * * *'  # Ejecuta cada 4 horas
+    - cron: '0 */1 * * *'  # Ejecuta cada 1 horas
 
 jobs:
   reiniciar:
