@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    - cron: '0 */4 * * *' # Esto reiniciará la acción cada 4 horas
+    - cron: '0 */3 * * *' # Esto reiniciará la acción cada 3 horas
     
 jobs:
   deploy:
