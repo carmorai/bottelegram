@@ -5,8 +5,8 @@ on:
     branches:
       - main
   schedule:
-    - cron: '* * * * *' # Esto reiniciará la acción cada minuto
-
+    - cron: '0 * * * *' # Esto reiniciará la acción cada hora
+    
 jobs:
   deploy:
     runs-on: ubuntu-latest
