@@ -3,8 +3,11 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
 
 def start(update: Update, context: CallbackContext) -> None:
+    # URL de la imagen
+    image_url = "https://www.carlosmorenoo.com/cursos.jpg"
+    
     # Envía la imagen antes del texto
-    update.message.reply_photo(photo=open('https://www.carlosmorenoo.com/cursos.jpg', 'rb'))
+    update.message.reply_photo(photo=image_url)
     
     message = (
         "Suscripción mensual Premium\n\n"
