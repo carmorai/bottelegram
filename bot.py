@@ -3,6 +3,9 @@ from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQueryHandler
 
 def start(update: Update, context: CallbackContext) -> None:
+    # Envía la imagen antes del texto
+    update.message.reply_photo(photo=open('https://www.carlosmorenoo.com/cursos.jpg', 'rb'))
+    
     message = (
         "Suscripción mensual Premium\n\n"
         "Acceso mensual a nuestro grupo privado de Telegram\n\n"
