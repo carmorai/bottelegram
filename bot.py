@@ -4,7 +4,7 @@ from telegram.ext import Updater, CommandHandler, CallbackContext, CallbackQuery
 
 def start(update: Update, context: CallbackContext) -> None:
     # URL de la imagen
-    image_url = "https://www.carlosmorenoo.com/cursos.jpg"
+    image_url = "https://www.carlosmorenoo.com/cursosneuro.jpg"
     
     # Envía la imagen antes del texto
     update.message.reply_photo(photo=image_url)
